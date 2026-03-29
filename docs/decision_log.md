@@ -14,3 +14,15 @@
 - Decision: Use Homebrew Python instead of macOS system Python.
 - Rationale: Ensures stable virtual environments and compatibility with modern Python tooling.
 - Consequence: Prevents environment inconsistencies and improves reproducibility.
+
+## 2026-02-21 - Python interpreter standardization enforcement
+- Decision: Explicitly require Homebrew Python for local development instead of system Python.
+- Rationale: macOS system Python can produce incomplete virtual environments and inconsistent dependency behavior.
+- Consequence: Slight setup overhead, but significantly improved stability and reproducibility.
+
+## 2026-02-21 - Early infrastructure validation
+- Decision: Validate PostgreSQL container health and connectivity before implementing schema.
+- Rationale: Prevents misattributing future schema or ingestion issues to infrastructure problems.
+- Consequence: Cleaner debugging boundaries during database and service layer implementation.
+
+
