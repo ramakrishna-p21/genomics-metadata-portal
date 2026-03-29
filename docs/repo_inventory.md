@@ -18,4 +18,7 @@
 - Build tooling: `Makefile` with standard commands
 - Containerization baseline: `Dockerfile` and `docker-compose.yml`
 
-
+## Database Artifacts Added
+- `sql/001_schema.sql` - base relational table definitions
+- `sql/002_constraints_indexes.sql` - foreign keys, checks, uniqueness rules, and indexes
+- `sql/003_seed_reference_data.sql` - master/reference data for pipelines, versions, tools, references, and QC metrics

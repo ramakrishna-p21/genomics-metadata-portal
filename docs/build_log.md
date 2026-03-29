@@ -20,3 +20,9 @@
 - Validated database connectivity using `psql` inside container.
 - Confirmed clean Git working tree after initial commit.
 
+## 2026-02-22 - Core relational schema implemented
+- Implemented normalized PostgreSQL schema covering patients, samples, sequencing runs, pipelines, provenance, QC, variant summaries, file assets, and audit events.
+- Added foreign key relationships, integrity constraints, controlled vocabulary checks, and analytical indexes.
+- Seeded core reference/master data for pipelines, pipeline versions, references, tools, and QC metric definitions.
+- Verified table creation and seed counts directly in PostgreSQL container.
+- Resolved Docker Compose stdin execution issue on macOS by using non-TTY SQL execution with `docker compose exec -T`.

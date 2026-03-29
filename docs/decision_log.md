@@ -25,4 +25,17 @@
 - Rationale: Prevents misattributing future schema or ingestion issues to infrastructure problems.
 - Consequence: Cleaner debugging boundaries during database and service layer implementation.
 
+## 2026-02-22 - Controlled vocabularies enforced with database checks
+- Decision: Enforce key controlled vocabularies using PostgreSQL CHECK constraints rather than separate lookup tables in the first implementation.
+- Rationale: Keeps the schema readable, strongly validated, and easier to demonstrate in a portfolio project while preserving operational realism.
+- Consequence: Vocabulary expansion requires schema edits, but the design remains clear and robust for the intended scope.
 
+## 2026-02-22 - Provenance modeled as explicit relational links
+- Decision: Represent run-level tools and references with dedicated association tables (`pipeline_run_tools`, `pipeline_run_references`).
+- Rationale: Supports precise provenance tracing and avoids burying critical lineage data inside JSON blobs.
+- Consequence: More joins are required, but traceability and analytical value are much stronger.
+
+## 2026-02-22 - Non-interactive SQL execution in Docker Compose
+- Decision: Use `docker compose exec -T` when executing SQL files through stdin redirection on macOS.
+- Rationale: Prevents TTY allocation errors during scripted PostgreSQL execution.
+- Consequence: Local database initialization commands are more robust and reproducible.
