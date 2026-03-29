@@ -31,3 +31,11 @@
 - `scripts/smoke_test.py` - Python database connectivity and seed-data verification
 - `scripts/__init__.py` - enables module-style script execution
 - `.vscode/settings.json` - local editor interpreter and import path configuration
+
+## Synthetic Data Artifacts Added
+- `app/utils/enums.py` - controlled vocabulary enums used across generation and ingestion
+- `app/utils/id_generators.py` - deterministic ID helpers for project entities
+- `app/utils/date_utils.py` - shared synthetic timeline utilities
+- `app/utils/manifest_parsers.py` - starter manifest readers for TSV/JSON inputs
+- `scripts/generate_synthetic_data.py` - synthetic manifest and output generator
+- `data/raw/` - generated synthetic source artifacts for ingestion

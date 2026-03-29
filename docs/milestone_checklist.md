@@ -28,8 +28,8 @@
 - [ ] Implement repository/query layer
 
 ## Milestone 4 - Synthetic data and ingestion
-- [ ] Build synthetic data generator
-- [ ] Generate realistic manifests and raw data artifacts
+- [x] Build synthetic data generator
+- [x] Generate realistic manifests and raw data artifacts
 - [ ] Implement ingestion scripts for samples, runs, QC, variants, and files
 - [ ] Register provenance relationships (tools, references, parameters)
 

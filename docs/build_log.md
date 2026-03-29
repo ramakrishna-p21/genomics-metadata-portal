@@ -35,3 +35,12 @@
 - Added Python-based database smoke test to validate connectivity and seeded master data access.
 - Resolved Python module import issue by standardizing on module-style script execution from repository root.
 - Added `scripts/__init__.py` and VS Code workspace settings to improve local interpreter and import resolution.
+
+## 2026-02-24 - Synthetic data generation implemented
+- Added shared enum definitions, ID generators, and date utilities for controlled synthetic record creation.
+- Implemented synthetic data generator for patients, batches, samples, sequencing runs, pipeline runs, QC results, variant summaries, file assets, analysis summaries, and audit events.
+- Generated realistic raw manifests and example files aligned to the production schema and ingestion plan.
+- Introduced operational realism including reruns, failed runs, WARN/FAIL QC cases, outdated pipeline version usage, high-TMB cases, and KRAS-mutated samples.
+- Standardized the local runtime on Homebrew Python 3.11 to support the intended project feature set and reproducible script execution.
+- Verified generated artifact structure and manifest summary from the local filesystem.
+

@@ -54,3 +54,18 @@
 - Decision: Run project scripts using `python -m ...` from the repository root instead of direct file execution.
 - Rationale: Ensures the repo root is on the Python import path and avoids fragile import behavior.
 - Consequence: Script execution is more consistent across local development, testing, and future CI environments.
+
+## 2026-02-24 - File-first synthetic data workflow
+- Decision: Generate synthetic manifests and output-like files under `data/raw/` before implementing DB ingestion.
+- Rationale: Mirrors real bioinformatics operations where systems ingest pipeline outputs and metadata artifacts rather than creating records directly in the database.
+- Consequence: Ingestion scripts can be designed and tested against realistic source artifacts.
+
+## 2026-02-24 - Deterministic synthetic data generation
+- Decision: Use a fixed random seed for synthetic data generation.
+- Rationale: Keeps development, testing, screenshots, and demonstrations reproducible across runs.
+- Consequence: Generated datasets are stable unless the generator logic is intentionally changed.
+
+## 2026-02-24 - Pin local development runtime to Python 3.11
+- Decision: Standardize local development on Homebrew Python 3.11 instead of the newest available Python release.
+- Rationale: Python 3.11 is modern, actively supported, broadly compatible with current libraries, and stable for portfolio development.
+- Consequence: Reduces risk of version-edge compatibility issues while keeping the project on a current supported runtime.
