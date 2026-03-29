@@ -16,3 +16,9 @@
 - Converted project design into a working relational PostgreSQL schema suitable for metadata governance and provenance tracking.
 - Enforced data quality through foreign keys, check constraints, and domain-controlled values.
 - Enabled realistic downstream ingestion and provenance workflows by seeding pipeline, reference, tool, and QC definition master data.
+
+## 2026-02-23 - Application data layer established
+- Created reusable Python database infrastructure for scripts, repositories, and Streamlit pages.
+- Aligned ORM models directly to the relational schema, enabling future ingestion and query workflows.
+- Reduced downstream implementation risk by validating Python-to-PostgreSQL connectivity before service-layer development.
+- Improved local development reliability by fixing editor interpreter resolution and Python module path behavior.

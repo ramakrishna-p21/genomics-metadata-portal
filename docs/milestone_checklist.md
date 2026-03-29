@@ -14,10 +14,32 @@
 - [x] Add initial documentation and tracking logs
 
 ## Milestone 2 - Database foundation
-- [ ] Implement SQL schema
-- [ ] Add constraints and indexes
-- [ ] Seed controlled vocabularies and reference data
+- [x] Implement SQL schema
+- [x] Add constraints and indexes
+- [x] Seed controlled vocabularies and reference data
 - [ ] Add SQL views and reporting queries
 
+## Milestone 3 - Python data layer
+- [x] Implement config and environment-driven settings
+- [x] Implement SQLAlchemy engine and session management
+- [x] Implement ORM models aligned to schema
+- [x] Add database smoke test and verify connectivity
+- [ ] Implement validation service layer
+- [ ] Implement repository/query layer
 
+## Milestone 4 - Synthetic data and ingestion
+- [ ] Build synthetic data generator
+- [ ] Generate realistic manifests and raw data artifacts
+- [ ] Implement ingestion scripts for samples, runs, QC, variants, and files
+- [ ] Register provenance relationships (tools, references, parameters)
 
+## Milestone 5 - Query and UI layer
+- [ ] Build repository/query services
+- [ ] Implement Streamlit pages (Sample Explorer, Run Explorer, QC Dashboard, Variant Search, Provenance Trace)
+- [ ] Add data dictionary and provenance trace workflows
+
+## Milestone 6 - Quality and deployment
+- [ ] Add tests and smoke checks
+- [ ] Add full stack containerization
+- [ ] Finalize documentation and screenshots
+- [ ] Prepare portfolio summary and resume bullets

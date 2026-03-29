@@ -22,3 +22,12 @@
 - `sql/001_schema.sql` - base relational table definitions
 - `sql/002_constraints_indexes.sql` - foreign keys, checks, uniqueness rules, and indexes
 - `sql/003_seed_reference_data.sql` - master/reference data for pipelines, versions, tools, references, and QC metrics
+
+## Python Data Layer Artifacts Added
+- `app/config.py` - environment-driven application settings
+- `app/db.py` - SQLAlchemy engine, session factory, and declarative base
+- `app/logging_config.py` - shared structured logging configuration
+- `app/models/` - ORM definitions aligned to relational schema
+- `scripts/smoke_test.py` - Python database connectivity and seed-data verification
+- `scripts/__init__.py` - enables module-style script execution
+- `.vscode/settings.json` - local editor interpreter and import path configuration

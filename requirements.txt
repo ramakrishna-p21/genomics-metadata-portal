@@ -5,3 +5,4 @@ pandas>=2.2,<3.0
 pydantic>=2.8,<3.0
 python-dotenv>=1.0,<2.0
 faker>=37.0,<38.0
+pydantic-settings>=2.4,<3.0

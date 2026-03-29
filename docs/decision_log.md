@@ -39,3 +39,18 @@
 - Decision: Use `docker compose exec -T` when executing SQL files through stdin redirection on macOS.
 - Rationale: Prevents TTY allocation errors during scripted PostgreSQL execution.
 - Consequence: Local database initialization commands are more robust and reproducible.
+
+## 2026-02-23 - Centralized configuration and session management
+- Decision: Use a shared settings module and centralized SQLAlchemy session factory for all application components.
+- Rationale: Prevents duplicated connection logic and supports clean reuse across scripts, repositories, tests, and UI pages.
+- Consequence: Configuration becomes easier to manage and the codebase remains more maintainable as features expand.
+
+## 2026-02-23 - ORM models aligned to existing SQL-first schema
+- Decision: Build SQLAlchemy models against the already-implemented PostgreSQL schema rather than generating schema from ORM first.
+- Rationale: The project is intentionally database-first to emphasize SQL design, integrity rules, and provenance-aware relational modeling.
+- Consequence: SQL remains the primary schema contract, while Python models serve as an application access layer.
+
+## 2026-02-23 - Module-style script execution
+- Decision: Run project scripts using `python -m ...` from the repository root instead of direct file execution.
+- Rationale: Ensures the repo root is on the Python import path and avoids fragile import behavior.
+- Consequence: Script execution is more consistent across local development, testing, and future CI environments.

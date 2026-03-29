@@ -19,6 +19,9 @@ logs:
 test:
 	$(PYTHON) -m pytest
 
+smoke:
+	$(PYTHON) -m scripts.smoke_test
+
 format:
 	$(PYTHON) -m black app scripts tests streamlit_app
 

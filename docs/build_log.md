@@ -26,3 +26,12 @@
 - Seeded core reference/master data for pipelines, pipeline versions, references, tools, and QC metric definitions.
 - Verified table creation and seed counts directly in PostgreSQL container.
 - Resolved Docker Compose stdin execution issue on macOS by using non-TTY SQL execution with `docker compose exec -T`.
+
+## 2026-02-23 - Python database layer implemented
+- Added environment-driven application settings using Pydantic settings.
+- Implemented SQLAlchemy engine, session factory, and declarative base.
+- Added structured application logging configuration.
+- Implemented SQLAlchemy ORM models aligned to the PostgreSQL schema.
+- Added Python-based database smoke test to validate connectivity and seeded master data access.
+- Resolved Python module import issue by standardizing on module-style script execution from repository root.
+- Added `scripts/__init__.py` and VS Code workspace settings to improve local interpreter and import resolution.
