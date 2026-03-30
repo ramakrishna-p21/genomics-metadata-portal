@@ -39,3 +39,9 @@
 - `app/utils/manifest_parsers.py` - starter manifest readers for TSV/JSON inputs
 - `scripts/generate_synthetic_data.py` - synthetic manifest and output generator
 - `data/raw/` - generated synthetic source artifacts for ingestion
+
+## Ingestion Layer Artifacts Added
+- `app/services/validation_service.py` - reusable manifest validation helpers
+- `app/services/sample_ingest_service.py` - patient, batch, and sample ingestion logic
+- `scripts/init_db.py` - Python-driven database initialization from SQL files
+- `scripts/ingest_samples.py` - sample metadata ingestion entry point

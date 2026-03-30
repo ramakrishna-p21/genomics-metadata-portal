@@ -44,3 +44,9 @@
 - Standardized the local runtime on Homebrew Python 3.11 to support the intended project feature set and reproducible script execution.
 - Verified generated artifact structure and manifest summary from the local filesystem.
 
+## 2026-02-25 - Initial ingestion layer implemented
+- Added reusable validation service for manifest structure, required fields, uniqueness, and controlled-value checks.
+- Implemented sample ingest service for patients, batches, and samples.
+- Added Python ingestion script for loading sample metadata manifests into PostgreSQL through the ORM/session layer.
+- Verified loaded record counts and patient-sample joins in PostgreSQL after ingestion.
+- Confirmed idempotent rerun behavior by re-executing sample ingestion without creating duplicate records.

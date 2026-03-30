@@ -28,3 +28,9 @@
 - Improved project realism by modeling non-happy-path conditions such as failed runs, partial outputs, QC warnings, and reprocessing events.
 - Enabled downstream recruiter-facing demos by generating analyst-meaningful cases including KRAS mutations and high-TMB samples.
 - Improved implementation stability by aligning local development to a consistent Python 3.11 runtime baseline.
+
+## 2026-02-25 - Database population workflow started
+- Transitioned the project from static schema plus raw files to an operational ingestion workflow.
+- Established a reusable validation-and-load pattern for bringing manifest data into PostgreSQL safely.
+- Enabled downstream sequencing, provenance, QC, and variant ingestion by loading foundational patient and sample metadata first.
+- Improved local operational reliability by confirming idempotent rerun behavior for sample metadata ingestion.

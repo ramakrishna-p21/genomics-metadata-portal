@@ -69,3 +69,13 @@
 - Decision: Standardize local development on Homebrew Python 3.11 instead of the newest available Python release.
 - Rationale: Python 3.11 is modern, actively supported, broadly compatible with current libraries, and stable for portfolio development.
 - Consequence: Reduces risk of version-edge compatibility issues while keeping the project on a current supported runtime.
+
+## 2026-02-25 - Validation before ORM insertion
+- Decision: Validate required columns, uniqueness, non-null rules, and controlled values before inserting manifests into the database.
+- Rationale: Failing fast at the manifest layer produces cleaner debugging and prevents avoidable database integrity errors.
+- Consequence: Ingestion scripts become more reliable and easier to reason about.
+
+## 2026-02-25 - Idempotent primary-key-based ingest behavior
+- Decision: Skip records whose primary keys already exist during initial ingestion scripts.
+- Rationale: Allows safe local reruns during development without creating duplicates.
+- Consequence: Current behavior favors insert-if-missing rather than full synchronization logic, which is sufficient for this project stage.
