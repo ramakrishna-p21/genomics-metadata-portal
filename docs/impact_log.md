@@ -34,3 +34,8 @@
 - Established a reusable validation-and-load pattern for bringing manifest data into PostgreSQL safely.
 - Enabled downstream sequencing, provenance, QC, and variant ingestion by loading foundational patient and sample metadata first.
 - Improved local operational reliability by confirming idempotent rerun behavior for sample metadata ingestion.
+
+## 2026-02-26 - Sequencing lineage established
+- Extended the ingestion workflow beyond sample metadata into operational sequencing run tracking.
+- Connected samples to concrete sequencing runs, enabling downstream provenance and pipeline execution linkage.
+- Improved analytical traceability by making sample-to-run relationships queryable in PostgreSQL.

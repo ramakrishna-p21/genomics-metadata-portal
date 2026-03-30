@@ -50,3 +50,9 @@
 - Added Python ingestion script for loading sample metadata manifests into PostgreSQL through the ORM/session layer.
 - Verified loaded record counts and patient-sample joins in PostgreSQL after ingestion.
 - Confirmed idempotent rerun behavior by re-executing sample ingestion without creating duplicate records.
+
+## 2026-02-26 - Sequencing run registration implemented
+- Added sequencing run registration service for loading sequencing runs and sample-run assignment manifests.
+- Validated run metadata, allowed statuses/platforms, and foreign-key compatibility with previously loaded samples.
+- Loaded sequencing run records and sample-to-run assignments into PostgreSQL.
+- Verified sequencing lineage joins and confirmed idempotent rerun behavior for sequencing registration.

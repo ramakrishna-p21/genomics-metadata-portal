@@ -79,3 +79,13 @@
 - Decision: Skip records whose primary keys already exist during initial ingestion scripts.
 - Rationale: Allows safe local reruns during development without creating duplicates.
 - Consequence: Current behavior favors insert-if-missing rather than full synchronization logic, which is sufficient for this project stage.
+
+## 2026-02-26 - Register runs only after foundational sample ingest
+- Decision: Load sequencing runs and sample-run assignments only after patients, batches, and samples are already present.
+- Rationale: Keeps ingestion aligned with foreign-key dependencies and simplifies validation.
+- Consequence: Registration order becomes explicit and easier to debug.
+
+## 2026-02-26 - Assignment idempotency based on composite operational key
+- Decision: Treat sample-run assignments as already loaded when the combination of sample, run, lane/partition, library_id, and barcode already exists.
+- Rationale: Mirrors the uniqueness rule enforced in the database and prevents duplicate assignment records on rerun.
+- Consequence: Local reloads remain safe without extra cleanup steps.

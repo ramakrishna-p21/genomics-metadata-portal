@@ -45,3 +45,7 @@
 - `app/services/sample_ingest_service.py` - patient, batch, and sample ingestion logic
 - `scripts/init_db.py` - Python-driven database initialization from SQL files
 - `scripts/ingest_samples.py` - sample metadata ingestion entry point
+
+## Sequencing Registration Artifacts Added
+- `app/services/run_registration_service.py` - sequencing run and assignment registration logic
+- `scripts/register_sequencing_run.py` - sequencing registration entry point
