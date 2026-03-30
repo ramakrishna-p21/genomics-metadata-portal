@@ -1,4 +1,4 @@
-from sqlalchemy import Numeric, Text, TIMESTAMP, func
+from sqlalchemy import TIMESTAMP, Numeric, Text, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db import Base
@@ -16,6 +16,8 @@ class QcMetricDefinition(Base):
     lower_bound: Mapped[float | None] = mapped_column(Numeric, nullable=True)
     upper_bound: Mapped[float | None] = mapped_column(Numeric, nullable=True)
     failure_rule_text: Mapped[str | None] = mapped_column(Text, nullable=True)
-    created_at: Mapped[object] = mapped_column(TIMESTAMP(timezone=True), nullable=False, server_default=func.now())
+    created_at: Mapped[object] = mapped_column(
+        TIMESTAMP(timezone=True), nullable=False, server_default=func.now()
+    )
 
     qc_results = relationship("QcResult", back_populates="qc_metric_definition")

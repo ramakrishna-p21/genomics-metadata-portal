@@ -89,3 +89,73 @@
 - Decision: Treat sample-run assignments as already loaded when the combination of sample, run, lane/partition, library_id, and barcode already exists.
 - Rationale: Mirrors the uniqueness rule enforced in the database and prevents duplicate assignment records on rerun.
 - Consequence: Local reloads remain safe without extra cleanup steps.
+
+## 2026-02-27 - Synthetic provenance emitted as first-class manifests
+- Decision: Generate `pipeline_run_references` and `pipeline_run_tools` as explicit synthetic manifests rather than deriving them during ingestion.
+- Rationale: Keeps provenance closer to realistic pipeline metadata handoff, makes ingest deterministic, and preserves auditable lineage inputs.
+- Consequence: Synthetic data generation becomes more detailed, but provenance registration logic becomes cleaner, simpler, and easier to validate.
+
+## 2026-02-28 - Provenance registration uses validate-then-insert idempotent loading
+- Decision: Implement provenance ingestion with service-level foreign-key validation followed by insert-if-missing behavior.
+- Rationale: Keeps reruns safe during development while failing early on lineage integrity problems before partial provenance loads occur.
+- Consequence: The service remains simple and reliable for the current phase, though full synchronization/update behavior can be added later if needed.
+
+## 2026-02-28 - Provenance ingestion aligned to seeded master data and patched schema
+- Decision: Keep provenance ingestion strict by requiring synthetic run-reference and run-tool manifests to use real seeded `reference_id` and `tool_id` values from master tables.
+- Rationale: Preserves auditable lineage integrity and ensures provenance records remain compatible with relational trace queries.
+- Consequence: Synthetic generator plans must stay aligned with reference/tool seed data, but the resulting provenance model is much stronger and more realistic.
+
+## 2026-02-28 - Patch provenance association schema to match intended lineage model
+- Decision: Add missing provenance fields to association tables (`execution_order`, `step_label`, `usage_role`, `created_at`) through an incremental SQL patch rather than weakening the service contract.
+- Rationale: The provenance service and synthetic manifests were already designed around richer lineage metadata needed for execution-order and step-level traceability.
+- Consequence: Slight schema maintenance overhead, but the database now better reflects the intended provenance design.
+
+## 2026-03-01 - File assets registered before QC ingestion
+- Decision: Load file assets before QC results instead of ingesting QC immediately after provenance registration.
+- Rationale: QC manifests include `source_file_asset_id`, so file asset registration is a dependency for strict foreign-key validation.
+- Consequence: Ingestion order becomes sample metadata -> sequencing -> provenance -> file assets -> QC, but lineage integrity is preserved.
+
+## 2026-03-01 - QC ingestion resolves metric names to seeded definition IDs
+- Decision: Translate incoming `qc_metric_name` values to relational `qc_metric_def_id` values during QC ingestion.
+- Rationale: The raw QC manifest is easier to generate and inspect using metric names, while the database model correctly normalizes metrics through master definitions.
+- Consequence: QC ingestion includes a mapping step, but the schema remains more governed and analytically consistent.
+
+## 2026-03-01 - Variant ingestion remains strict and file-aware
+- Decision: Require variant summaries to resolve to registered samples, pipeline runs, and source file assets before insertion.
+- Rationale: Preserves lineage integrity and keeps downstream mutation reporting tied to concrete computational outputs rather than detached summary rows.
+- Consequence: File asset registration must precede variant ingestion, but provenance and auditability are much stronger.
+
+## 2026-03-02 - Use qc_summary_flag for sample-level QC status in listings
+- Decision: Derive `latest_qc_status` in sample list queries from the `qc_summary_flag` metric instead of broader QC result rows.
+- Rationale: Prevents duplicate sample rows and aligns list-level QC display with the intended sample summary semantics.
+- Consequence: Sample listing queries become more stable and UI-friendly, while detailed QC inspection remains available separately.
+
+## 2026-03-02 - Run Streamlit through a dedicated Home entrypoint
+- Decision: Launch the UI through `streamlit_app/Home.py` instead of running page files directly.
+- Rationale: Keeps package imports stable, matches Streamlit's multi-page app conventions, and simplifies future growth of the UI layer.
+- Consequence: Slightly more app structure is required, but local development becomes more reliable.
+
+## 2026-03-02 - Add a dedicated QC dashboard after sample and run exploration
+- Decision: Build a QC-focused page as the third Streamlit page after Sample Explorer and Run Explorer.
+- Rationale: QC monitoring is a core workflow in bioinformatics operations and complements both sample-centric and run-centric views.
+- Consequence: The UI now covers metadata exploration, provenance exploration, and operational QC review.
+
+## 2026-03-02 - Add variant search as a core UI workflow
+- Decision: Include a cross-sample variant search page as part of the initial UI.
+- Rationale: Variant-centric querying is a primary workflow in bioinformatics and clinical genomics.
+- Consequence: The UI now supports both sample-level and mutation-level exploration.
+
+## 2026-03-02 - Add a dedicated provenance trace page as a core UI workflow
+- Decision: Include a separate provenance trace page instead of relying only on provenance sections embedded inside other pages.
+- Rationale: Provenance is a primary differentiator of the project and deserves a focused UI workflow for lineage inspection.
+- Consequence: The UI now explicitly supports metadata exploration, run exploration, QC review, variant search, and end-to-end lineage tracing.
+
+## 2026-03-02 - Add a dedicated in-app data dictionary page
+- Decision: Expose schema metadata through a dedicated Streamlit page in addition to future static documentation.
+- Rationale: An in-app data dictionary improves discoverability, supports analyst self-service, and reinforces the project’s governance focus.
+- Consequence: The UI now includes both analytical workflows and schema/documentation workflows.
+
+## 2026-03-02 - Start Milestone 6 with targeted smoke tests
+- Decision: Add a focused smoke-test layer first instead of attempting full exhaustive test coverage.
+- Rationale: High-value integration checks provide strong confidence for a portfolio project while keeping implementation effort proportionate.
+- Consequence: The project gains meaningful quality signals quickly, with room for deeper testing later.

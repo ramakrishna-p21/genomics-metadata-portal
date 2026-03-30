@@ -24,22 +24,22 @@
 - [x] Implement SQLAlchemy engine and session management
 - [x] Implement ORM models aligned to schema
 - [x] Add database smoke test and verify connectivity
-- [ ] Implement validation service layer
+- [x] Implement validation service layer
 - [ ] Implement repository/query layer
 
 ## Milestone 4 - Synthetic data and ingestion
 - [x] Build synthetic data generator
 - [x] Generate realistic manifests and raw data artifacts
-- [ ] Implement ingestion scripts for samples, runs, QC, variants, and files
-- [ ] Register provenance relationships (tools, references, parameters)
+- [x] Implement ingestion scripts for samples, runs, QC, variants, and files
+- [x] Register provenance relationships (tools, references, parameters)
 
 ## Milestone 5 - Query and UI layer
-- [ ] Build repository/query services
-- [ ] Implement Streamlit pages (Sample Explorer, Run Explorer, QC Dashboard, Variant Search, Provenance Trace)
+- [~] Implement repository/query layer - sample-centric repository and smoke test added; additional run/QC/dashboard-oriented repositories may still follow
+- [x] Implement Streamlit pages (Sample Explorer, Run Explorer, QC Dashboard, Variant Search, Provenance Trace)
 - [ ] Add data dictionary and provenance trace workflows
 
 ## Milestone 6 - Quality and deployment
-- [ ] Add tests and smoke checks
+- [~] Add tests and smoke checks - initial smoke tests for DB connectivity and repository workflows implemented
 - [ ] Add full stack containerization
 - [ ] Finalize documentation and screenshots
 - [ ] Prepare portfolio summary and resume bullets

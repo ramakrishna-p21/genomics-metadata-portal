@@ -49,3 +49,43 @@
 ## Sequencing Registration Artifacts Added
 - `app/services/run_registration_service.py` - sequencing run and assignment registration logic
 - `scripts/register_sequencing_run.py` - sequencing registration entry point
+
+## Synthetic Data Artifacts Added
+- `data/raw/pipeline_runs/pipeline_run_references.json` - synthetic run-to-reference provenance links with usage role, step label, and execution order
+- `data/raw/pipeline_runs/pipeline_run_tools.json` - synthetic run-to-tool provenance links with usage role, step label, and execution order
+
+## Ingestion Layer Artifacts Added
+- `app/services/provenance_service.py` - registers pipeline runs, run-level provenance links, and sample analysis summaries
+
+## Database Artifacts Added
+- `sql/004_provenance_association_alignment.sql` - schema patch aligning provenance association tables to the intended lineage model
+
+## Synthetic Data Artifacts Added
+- `data/raw/pipeline_runs/pipeline_run_references.json` - synthetic run-to-reference provenance links with usage role, execution order, and step label
+- `data/raw/pipeline_runs/pipeline_run_tools.json` - synthetic run-to-tool provenance links with usage role, execution order, and step label
+
+## Ingestion Layer Artifacts Added
+- `app/services/provenance_service.py` - registers pipeline runs, run-level provenance links, and sample analysis summaries
+- `scripts/register_pipeline_run.py` - provenance registration entry point for pipeline runs, run references, run tools, and analysis summaries
+- `app/services/file_asset_service.py` - validates and registers file asset records into PostgreSQL
+- `scripts/register_file_assets.py` - file asset ingestion entry point for raw file manifests
+- `app/services/qc_ingest_service.py` - validates and loads QC result records into PostgreSQL
+- `scripts/ingest_qc_results.py` - QC ingestion entry point for raw QC metric manifests
+- `app/services/variant_ingest_service.py` - validates and loads variant summary records into PostgreSQL
+- `scripts/ingest_variant_summaries.py` - variant ingestion entry point for raw variant summary manifests
+
+## Query Layer Artifacts Added
+- `app/repositories/sample_repository.py` - sample-centric repository for listing, detail lookup, provenance tracing, QC retrieval, and variant retrieval
+- `scripts/test_sample_repository.py` - repository smoke test for sample-centric query workflows
+- `streamlit_app/Home.py` - main Streamlit entrypoint for the multi-page analyst-facing app
+- `app/repositories/qc_repository.py` - QC-focused repository for status summaries and recent result inspection
+- `streamlit_app/pages/03_QC_Dashboard.py` - analyst-facing Streamlit page for QC monitoring and QC result review
+- `app/repositories/provenance_repository.py` - repository for end-to-end sample provenance trace workflows
+- `streamlit_app/pages/05_Provenance_Trace.py` - analyst-facing Streamlit page for end-to-end lineage tracing
+- `app/repositories/data_dictionary_repository.py` - repository for interactive schema/data-dictionary exploration
+- `streamlit_app/pages/06_Data_Dictionary.py` - analyst-facing Streamlit page for schema and metadata inspection
+
+## Test Artifacts Added
+- `tests/test_smoke_pipeline.py` - smoke checks for DB connectivity and core table counts
+- `tests/test_sample_repository.py` - smoke tests for sample-centric repository workflows
+- `tests/test_run_repository.py` - smoke tests for run-centric repository workflows

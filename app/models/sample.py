@@ -1,4 +1,4 @@
-from sqlalchemy import Date, ForeignKey, Text, TIMESTAMP, func
+from sqlalchemy import TIMESTAMP, Date, ForeignKey, Text, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db import Base
@@ -20,7 +20,9 @@ class Sample(Base):
     tumor_normal_status: Mapped[str | None] = mapped_column(Text, nullable=True)
     library_prep_kit: Mapped[str | None] = mapped_column(Text, nullable=True)
     notes: Mapped[str | None] = mapped_column(Text, nullable=True)
-    created_at: Mapped[object] = mapped_column(TIMESTAMP(timezone=True), nullable=False, server_default=func.now())
+    created_at: Mapped[object] = mapped_column(
+        TIMESTAMP(timezone=True), nullable=False, server_default=func.now()
+    )
 
     patient = relationship("Patient", back_populates="samples")
     batch = relationship("Batch", back_populates="samples")
@@ -29,4 +31,6 @@ class Sample(Base):
     file_assets = relationship("FileAsset", back_populates="sample")
     qc_results = relationship("QcResult", back_populates="sample")
     variant_summaries = relationship("VariantSummary", back_populates="sample")
-    sample_analysis_summary = relationship("SampleAnalysisSummary", back_populates="sample", uselist=False)
+    sample_analysis_summary = relationship(
+        "SampleAnalysisSummary", back_populates="sample", uselist=False
+    )

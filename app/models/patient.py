@@ -1,4 +1,4 @@
-from sqlalchemy import Text, TIMESTAMP, func
+from sqlalchemy import TIMESTAMP, Text, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db import Base
@@ -13,6 +13,8 @@ class Patient(Base):
     condition_group: Mapped[str] = mapped_column(Text, nullable=False)
     sex: Mapped[str | None] = mapped_column(Text, nullable=True)
     age_band: Mapped[str | None] = mapped_column(Text, nullable=True)
-    created_at: Mapped[object] = mapped_column(TIMESTAMP(timezone=True), nullable=False, server_default=func.now())
+    created_at: Mapped[object] = mapped_column(
+        TIMESTAMP(timezone=True), nullable=False, server_default=func.now()
+    )
 
     samples = relationship("Sample", back_populates="patient")
