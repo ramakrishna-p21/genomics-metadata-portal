@@ -1,5 +1,7 @@
 # Genomics Metadata, Provenance & Analysis Portal
 
+Deployed on AWS EC2 with Docker Compose (on-demand startup to minimize cost)
+
 A full-stack bioinformatics data platform for tracking samples, sequencing runs, pipeline execution, QC metrics, and variant summaries with end-to-end provenance and reproducibility.
 
 ---
@@ -142,7 +144,7 @@ The same codebase runs in local development, Docker, and future cloud environmen
 
 ### 1. Clone the repository
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/ramakrishna-p21/genomics-metadata-portal.git
 cd genomics-metadata-portal
 ```
 
@@ -161,7 +163,8 @@ On first startup, the application automatically:
 - Initializes the PostgreSQL schema
 - Seeds reference data
 - Applies schema alignment patches
-- Ingests synthetic sample, sequencing, provenance, QC, file, and variant data
+- Generates synthetic data if not already present
+- Ingests sample, sequencing, provenance, QC, file, and variant data
 - Launches the Streamlit UI
 
 On subsequent restarts, schema initialization is skipped and idempotent ingestion reruns safely.
@@ -210,21 +213,44 @@ Smoke tests cover database connectivity, core table population counts, and sampl
 
 ---
 
-## Deployment
+## Deployment (AWS EC2)
 
-The system runs as a fully containerized stack:
+This application was deployed on AWS EC2 using Docker Compose.
+
+### Steps
+
+1. Launch an EC2 instance (Ubuntu 24.04, t4g.small)
+2. Install Docker and Docker Compose
+3. Clone the repository:
+```bash
+git clone https://github.com/ramakrishna-p21/genomics-metadata-portal.git
+cd genomics-metadata-portal
+```
+
+4. Configure environment:
+```bash
+cp .env.example .env
+```
+
+5. Start the application:
 ```bash
 docker compose up --build
 ```
 
-Designed for deployment to AWS Lightsail or any container-compatible environment without architectural changes.
+The application is available at:
+```
+http://<EC2_PUBLIC_IP>:8501
+```
+
+### Cost Optimization
+
+The EC2 instance can be stopped when not in use to minimize cost.
 
 ---
 
 ## Future Improvements
 
-- Cloud deployment (AWS Lightsail / ECS)
-- Automated database initialization and ingestion on container startup
+- Cloud deployment to ECS or a managed container platform
 - REST API layer (FastAPI)
 - Role-based access control
 - CI/CD pipeline
