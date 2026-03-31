@@ -13,10 +13,12 @@
 
 - Python virtual environment: configured and verified (`.venv`)
 - PostgreSQL: running via Docker Compose (`postgres:16`)
+- Streamlit application: containerized and running via Docker Compose
+- Full-stack containerization: PostgreSQL + Streamlit app orchestrated with Docker Compose
 - Environment configuration: `.env` and `.env.example` in place
 - Dependency management: `requirements.txt` and `requirements-dev.txt`
 - Build tooling: `Makefile` with standard commands
-- Containerization baseline: `Dockerfile` and `docker-compose.yml`
+- Containerization: production-ready `Dockerfile` and `docker-compose.yml` supporting local and deployment environments
 
 ## Database Artifacts Added
 - `sql/001_schema.sql` - base relational table definitions

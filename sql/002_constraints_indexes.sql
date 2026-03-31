@@ -16,9 +16,7 @@ ALTER TABLE sample_run_assignments
         ON UPDATE CASCADE ON DELETE CASCADE,
     ADD CONSTRAINT fk_sample_run_assignments_seq_run
         FOREIGN KEY (seq_run_id) REFERENCES sequencing_runs(seq_run_id)
-        ON UPDATE CASCADE ON DELETE CASCADE,
-    ADD CONSTRAINT uq_sample_run_assignment_unique
-        UNIQUE (sample_id, seq_run_id, COALESCE(lane_or_partition, ''), COALESCE(library_id, ''), COALESCE(barcode, ''));
+        ON UPDATE CASCADE ON DELETE CASCADE;
 
 ALTER TABLE pipeline_versions
     ADD CONSTRAINT fk_pipeline_versions_pipeline
@@ -56,9 +54,7 @@ ALTER TABLE pipeline_run_tools
         ON UPDATE CASCADE ON DELETE CASCADE,
     ADD CONSTRAINT fk_pipeline_run_tools_tool
         FOREIGN KEY (tool_id) REFERENCES tool_registry(tool_id)
-        ON UPDATE CASCADE ON DELETE RESTRICT,
-    ADD CONSTRAINT uq_pipeline_run_tool_step
-        UNIQUE (pipeline_run_id, tool_id, COALESCE(step_label, ''), COALESCE(execution_order, -1));
+        ON UPDATE CASCADE ON DELETE RESTRICT;
 
 ALTER TABLE file_assets
     ADD CONSTRAINT fk_file_assets_sample
@@ -152,7 +148,23 @@ ALTER TABLE pipeline_runs
 
 ALTER TABLE pipeline_run_references
     ADD CONSTRAINT chk_pipeline_run_references_usage_role
-        CHECK (usage_role IN ('PRIMARY_GENOME', 'PRIMARY_ANNOTATION', 'TARGET_INTERVALS', 'TRANSCRIPTOME_INDEX', 'FILTER_RESOURCE'));
+        CHECK (
+            usage_role IN (
+                'PRIMARY_GENOME',
+                'PRIMARY_ANNOTATION',
+                'TARGET_INTERVALS',
+                'TRANSCRIPTOME_INDEX',
+                'FILTER_RESOURCE',
+                'GENOME',
+                'KNOWN_SITES',
+                'CLINICAL_ANNOTATION',
+                'CANCER_ANNOTATION',
+                'GENOME_CONTEXT',
+                'ANNOTATION',
+                'ALIGNMENT_INDEX',
+                'TRANSCRIPTOME'
+            )
+        );
 
 ALTER TABLE file_assets
     ADD CONSTRAINT chk_file_assets_role
@@ -191,6 +203,23 @@ ALTER TABLE audit_events
         CHECK (entity_type IN ('PATIENT', 'SAMPLE', 'SEQUENCING_RUN', 'PIPELINE_RUN', 'FILE_ASSET', 'QC_RESULT', 'VARIANT_SUMMARY')),
     ADD CONSTRAINT chk_audit_events_event_type
         CHECK (event_type IN ('CREATED', 'REGISTERED', 'INGESTED', 'UPDATED', 'STATUS_CHANGED', 'LINKED', 'FAILED'));
+
+CREATE UNIQUE INDEX IF NOT EXISTS uq_sample_run_assignment_unique
+ON sample_run_assignments (
+    sample_id,
+    seq_run_id,
+    COALESCE(lane_or_partition, ''),
+    COALESCE(library_id, ''),
+    COALESCE(barcode, '')
+);
+
+CREATE UNIQUE INDEX IF NOT EXISTS uq_pipeline_run_tool_step
+ON pipeline_run_tools (
+    pipeline_run_id,
+    tool_id,
+    COALESCE(step_label, ''),
+    COALESCE(execution_order, -1)
+);
 
 CREATE INDEX IF NOT EXISTS idx_samples_patient_id
     ON samples(patient_id);

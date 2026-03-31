@@ -137,3 +137,12 @@
 - Added `tests/test_sample_repository.py` to validate sample-centric repository workflows.
 - Added `tests/test_run_repository.py` to validate run-centric repository workflows.
 - Executed targeted smoke tests for connectivity, core counts, and repository behavior and confirmed all tests passed.
+
+## 2026-03-30 - Full stack containerization implemented
+- Extended existing PostgreSQL-only Docker Compose setup to full-stack orchestration including Streamlit application container.
+- Added production-ready Dockerfile for Streamlit app using Python 3.11 slim base image and dependency installation via requirements.txt.
+- Configured container-to-container networking with application connecting to PostgreSQL using Docker service name (`postgres`) instead of localhost.
+- Standardized environment-driven configuration to support both local venv execution and Docker runtime without code changes.
+- Added health checks for both PostgreSQL and Streamlit services to ensure reliable startup sequencing.
+- Verified successful end-to-end startup using `docker compose up --build` with working UI and database connectivity across all pages.
+- Ensured no credentials or environment-specific values are baked into the container image.

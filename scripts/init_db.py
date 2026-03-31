@@ -1,3 +1,4 @@
+import os
 import subprocess
 from pathlib import Path
 
@@ -13,23 +14,26 @@ SQL_DIR = BASE_DIR / "sql"
 def run_sql_file(sql_file: Path) -> None:
     logger.info("Applying SQL file: %s", sql_file.name)
 
+    env = os.environ.copy()
+    env["PGPASSWORD"] = env.get("POSTGRES_PASSWORD") or env.get("DB_PASSWORD", "")
+
     command = [
-        "docker",
-        "compose",
-        "exec",
-        "-T",
-        "postgres",
         "psql",
+        "-h",
+        env.get("POSTGRES_HOST") or env.get("DB_HOST", "postgres"),
+        "-p",
+        str(env.get("POSTGRES_PORT") or env.get("DB_PORT", "5432")),
         "-U",
-        "genomics_user",
+        env.get("POSTGRES_USER") or env.get("DB_USER", "genomics_user"),
         "-d",
-        "genomics_portal",
+        env.get("POSTGRES_DB") or env.get("DB_NAME", "genomics_portal"),
+        "-v",
+        "ON_ERROR_STOP=1",
         "-f",
-        "/dev/stdin",
+        str(sql_file),
     ]
 
-    with sql_file.open("rb") as handle:
-        result = subprocess.run(command, stdin=handle, cwd=BASE_DIR, check=False)
+    result = subprocess.run(command, cwd=BASE_DIR, env=env, check=False)
 
     if result.returncode != 0:
         raise RuntimeError(f"Failed to apply {sql_file.name}")
@@ -40,11 +44,17 @@ def run_sql_file(sql_file: Path) -> None:
 def main() -> None:
     logger.info("Initializing database from SQL files")
 
-    for sql_name in [
+    sql_files = [
         "001_schema.sql",
         "002_constraints_indexes.sql",
         "003_seed_reference_data.sql",
-    ]:
+    ]
+
+    optional_sql = SQL_DIR / "004_provenance_association_alignment.sql"
+    if optional_sql.exists():
+        sql_files.append("004_provenance_association_alignment.sql")
+
+    for sql_name in sql_files:
         run_sql_file(SQL_DIR / sql_name)
 
     logger.info("Database initialization complete")

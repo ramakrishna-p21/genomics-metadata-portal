@@ -159,3 +159,13 @@
 - Decision: Add a focused smoke-test layer first instead of attempting full exhaustive test coverage.
 - Rationale: High-value integration checks provide strong confidence for a portfolio project while keeping implementation effort proportionate.
 - Consequence: The project gains meaningful quality signals quickly, with room for deeper testing later.
+
+## 2026-03-30 - Use Docker Compose service networking for database connectivity
+- Decision: Configure the application container to connect to PostgreSQL using the Docker Compose service name (`postgres`) instead of localhost.
+- Rationale: Containerized services must communicate over the Docker network, and this pattern aligns with production deployment models.
+- Consequence: Local and containerized environments share the same configuration structure while differing only in environment variable values.
+
+## 2026-03-30 - Keep containerization environment-driven and image-safe
+- Decision: Pass all database credentials and runtime configuration through environment variables rather than embedding them in the Docker image.
+- Rationale: Ensures security, portability, and compatibility with future cloud deployment environments such as AWS Lightsail.
+- Consequence: The Docker image remains reusable across environments, with configuration managed externally.
